@@ -179,7 +179,7 @@ These are listed in section 12 as later extensions.
 
 **Experiment 3 details.**
 - **Strict test in float32:** must be 100% identical. The 3B needs about 11.5 GiB in float32, so the target runs on `cuda:0` and the neural draft on `cuda:1`. Move logits to one device before comparing.
-- **Float16 test:** mismatches are expected, not a bug. Hugging Face maintainers confirm that verifying several tokens at once uses different matrix kernels, so near-tied logits can flip. Fix the near-tie threshold in advance (for example a top-two logit gap below 0.05). The check is **teacher-forced**: run the target once without a cache over the full emitted sequence, and require every emitted token to be the target's top choice or a logged near-tie.
+- **Float16 test:** mismatches are expected, not a bug. Hugging Face maintainers confirm that verifying several tokens at once uses different matrix kernels, so near-tied logits can flip. Fix the near-tie threshold in advance: **a top-two logit gap below 0.1** (fixed 2026-09-30, before any run). Qwen's logits are mostly between 10 and 40, where float16 values are 0.008 to 0.03 apart, so kernel differences of a few steps can move a logit by up to about 0.1. The check is **teacher-forced**: run the target once without a cache over the full emitted sequence, and require every emitted token to be the target's top choice or a logged near-tie.
 
 ---
 
