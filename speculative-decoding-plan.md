@@ -71,6 +71,8 @@ From the paper:
 
 Qwen's official Hugging Face benchmark (A100, batch size 1) gives **30.8 tokens/s for the 3B and only 47.4 tokens/s for the 0.5B**, and the 7B is faster than the 3B. vLLM runs the same models 4 to 6.6 times faster on the same GPU. So Hugging Face eager decoding at this size is limited by per-layer framework and kernel-launch overhead, and step time follows layer count (24 against 36, ratio 0.67) more than parameter count. The implied c is 30.8 / 47.4 ≈ **0.65**. On a T4 we expect **c ≈ 0.5 to 0.7**. This is an estimate: no T4 measurement for this pair was found. Experiment 4 replaces it.
 
+**First measurement (2026-09-29, `specdec.check_env`, one prompt, 48 greedy tokens, median step time):** target 46.3 ms/token (21.6 tokens/s), draft 29.9 ms/token (33.4 tokens/s), so **c ≈ 0.65**, as predicted. Checking 2 to 16 tokens in one target pass cost 0.93 to 0.97 times a single-token pass, so **verification is effectively free** up to 16 tokens. This is a rough first number from one prompt; experiment 4 measures it properly.
+
 ### Predicted speedup for the neural draft
 
 | α | γ | c = 0.65 | c = 0.3 |
@@ -255,7 +257,7 @@ The full run ends by writing `report/README.md` with the speedup tables, the the
 - On rejection, sample from norm(max(0, p − q)). If that leftover sums to almost zero (it equals 1 − β, so it vanishes when p ≈ q) or is not finite, sample from p instead.
 - For greedy decoding, compare with the target's argmax directly.
 
-**The copy draft (prompt lookup).** Take the last n tokens of the sequence (prompt plus output so far) and find the most recent earlier place they appeared. If found, propose the γ tokens that followed it. Try n = 3, then 2, then 1. If nothing matches, propose nothing, and the round is a normal target step. Its q is one-hot, so the acceptance rule is simply: **sample y from p; accept if y equals the proposed token, otherwise emit y and stop the round**. This is exactly "accept with probability p(x), else sample from p with x removed", without building a fake one-hot q. About 50 lines.
+**The copy draft (prompt lookup).** Take the last n tokens of the sequence (prompt plus output so far) and find the most recent earlier place they appeared. If found, propose the γ tokens that followed it. Try n = 3, then 2, then 1. If nothing matches, propose nothing, and the round is a normal target step. Its q is one-hot, and it goes through the same acceptance rule as the neural draft: with a one-hot q, the rule accepts a proposed token with probability p(x) and otherwise samples from p with x removed. One code path for both drafts means one set of tests covers both (experiment 1 includes a one-hot q). About 50 lines.
 
 **Target logits line-up.** In the verify pass, the target's output at position t is the distribution for token t+1. Checking γ draft tokens gives γ+1 useful rows; the last one gives the bonus token when all are accepted.
 
@@ -294,7 +296,14 @@ A full run uses about 1 to 1.5 of the 30 weekly GPU-hours. If it turns out much 
 
 Timing repeats for medians happen inside each run, so extra full runs are not needed for that. Total: about 3 to 6 GPU-hours.
 
-**Settle in the first `--quick` run, not in advance:** the real c, how flat the verification-cost curve is, whether the 3B shows any float16 instability under SDPA, and which versions the Kaggle image provides.
+**Settled by the step 1 check (2026-09-29):**
+- Environment: Python 3.12.13, torch 2.10.0+cu128, transformers 5.17.0, accelerate 1.13.0, two Tesla T4s.
+- Vocabulary: 151,936 output rows in both models, 151,665 real tokens, identical tokenizers. Qwen's shipped defaults confirmed (sampling on, repetition penalty 1.05 for the 3B and 1.1 for the 0.5B).
+- Float16: finite logits for both models under SDPA on the test prompt.
+- Cache rollback: `crop(-k)` restored the exact cache length for k = 1 to 16.
+- c ≈ 0.65 and a flat verification cost (section 3).
+- Target speed 21.6 tokens/s, inside the 18 to 30 tokens/s estimate, so the time budget above stands.
+- Download: about 7 GB from Hugging Face in under a minute.
 
 ---
 

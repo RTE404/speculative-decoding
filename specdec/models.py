@@ -93,9 +93,9 @@ def encode_prompt(tokenizer: PreTrainedTokenizerBase, text: str, device: torch.d
     return tokenizer(chat, return_tensors="pt", add_special_tokens=False).input_ids.to(device)
 
 
-def real_logits(logits: torch.Tensor) -> torch.Tensor:
+def real_logits(logits: torch.Tensor, vocab_size: int = REAL_VOCAB) -> torch.Tensor:
     """Drop the padding rows and move to float32, where all probability maths happens."""
-    out = logits[..., :REAL_VOCAB].float()
+    out = logits[..., :vocab_size].float()
     if not torch.isfinite(out).all():
         raise FloatingPointError("model produced inf or NaN logits (float16 overflow?)")
     return out
