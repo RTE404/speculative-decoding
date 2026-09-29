@@ -31,6 +31,16 @@ def generate(target: CachedModel, draft, prompt: list[int], *, max_new_tokens: i
              generator: torch.Generator | None = None) -> Output:
     result = Output(tokens=[])
     tokens = list(prompt)
+    # Per round: (k, n, sum of min(p, q) at every draft position). The sums stay on the GPU
+    # until the end, so collecting them adds no synchronisation to the timed loop.
+    pending: list[tuple[int, int, torch.Tensor]] = []
+
+    def finish() -> Output:
+        for k, n, sums in pending:
+            evaluated = n + 1 if n < k else k
+            result.rounds.append(Round(proposed=k, accepted=n, sum_min=sums[:evaluated].tolist()))
+        return result
+
     while len(result.tokens) < max_new_tokens:
         # Never draft past the length limit: the round's own target token needs one slot.
         room = max_new_tokens - len(result.tokens) - 1
@@ -42,15 +52,13 @@ def generate(target: CachedModel, draft, prompt: list[int], *, max_new_tokens: i
         q = q.to(p.device)  # the draft may live on another GPU
         drafted = torch.tensor([draft_tokens], dtype=torch.long, device=p.device)
         n, next_token = verify(p.unsqueeze(0), q.unsqueeze(0), drafted, generator)
-        n = n.item()
-        evaluated = n + 1 if n < k else k
-        sum_min = torch.minimum(p[:evaluated], q[:evaluated]).sum(-1).tolist()
-        result.rounds.append(Round(proposed=k, accepted=n, sum_min=sum_min))
+        n, next_token = torch.cat([n, next_token]).tolist()  # the round's one synchronisation
+        pending.append((k, n, torch.minimum(p[:k], q).sum(-1)))
 
         # Stop at EOS or the length limit, even in the middle of an accepted block.
-        for token in draft_tokens[:n] + [next_token.item()]:
+        for token in draft_tokens[:n] + [next_token]:
             result.tokens.append(token)
             tokens.append(token)
             if token in eos_ids or len(result.tokens) >= max_new_tokens:
-                return result
-    return result
+                return finish()
+    return finish()
