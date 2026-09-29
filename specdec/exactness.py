@@ -106,30 +106,41 @@ def part_float16(args, prompts) -> dict:
     return results
 
 
+def run(target: str, draft: str, tokens: int) -> dict:
+    """Both parts of experiment 3. Returns the report; pass/fail flags are in it."""
+    args = argparse.Namespace(target=target, draft=draft, tokens=tokens)
+    prompts = one_prompt_per_task()
+    print("== float32: strict exact match ==", flush=True)
+    fp32 = part_float32(args, prompts)
+    print("== float16: teacher-forced check ==", flush=True)
+    fp16 = part_float16(args, prompts)
+    return {
+        "near_tie_threshold": NEAR_TIE, "gamma": GAMMA, "max_new_tokens": tokens,
+        "float32": fp32, "float16": fp16,
+        "float32_strict_pass": all(r["identical"] for per_prompt in fp32.values() for r in per_prompt.values()),
+        "float16_teacher_forced_pass": all(not r["failures"] for per_prompt in fp16.values()
+                                           for r in per_prompt.values()),
+    }
+
+
+def print_verdict(report: dict) -> None:
+    print(f"float32 strict exact match: {'PASS' if report['float32_strict_pass'] else 'FAIL'}")
+    print(f"float16 teacher-forced check: {'PASS' if report['float16_teacher_forced_pass'] else 'FAIL'}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--target", default=find_kaggle_model("3b-instruct") or TARGET_ID)
     parser.add_argument("--draft", default=find_kaggle_model("0.5b-instruct") or DRAFT_ID)
     parser.add_argument("--tokens", type=int, default=128)
     args = parser.parse_args()
-    prompts = one_prompt_per_task()
-
-    print("== float32: strict exact match ==", flush=True)
-    fp32 = part_float32(args, prompts)
-    print("== float16: teacher-forced check ==", flush=True)
-    fp16 = part_float16(args, prompts)
-
-    strict_pass = all(r["identical"] for per_prompt in fp32.values() for r in per_prompt.values())
-    fp16_pass = all(not r["failures"] for per_prompt in fp16.values() for r in per_prompt.values())
-    report = {"near_tie_threshold": NEAR_TIE, "gamma": GAMMA, "max_new_tokens": args.tokens,
-              "float32": fp32, "float16": fp16,
-              "float32_strict_pass": strict_pass, "float16_teacher_forced_pass": fp16_pass}
+    report = run(args.target, args.draft, args.tokens)
     out_dir = ROOT / "results"
     out_dir.mkdir(exist_ok=True)
     (out_dir / "exactness.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps(report, indent=2))
-    print(f"\nfloat32 strict exact match: {'PASS' if strict_pass else 'FAIL'}")
-    print(f"float16 teacher-forced check: {'PASS' if fp16_pass else 'FAIL'}")
+    print()
+    print_verdict(report)
     print("saved results/exactness.json")
 
 
