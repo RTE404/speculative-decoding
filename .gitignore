@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# The paper is the authors' copyrighted work; link to arXiv instead of committing it.
+Speculative Decoding.pdf

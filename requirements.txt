@@ -1,0 +1,9 @@
+# On Kaggle, torch is preinstalled (2.10.0+cu128 in image v170) and matches the GPU's
+# CUDA version. Do not reinstall it. Install these before anything imports transformers.
+transformers==5.17.0
+accelerate==1.13.0
+
+# Already present on Kaggle; listed so a local setup gets them too.
+numpy
+scipy
+matplotlib
