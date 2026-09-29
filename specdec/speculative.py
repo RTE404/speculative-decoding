@@ -39,6 +39,7 @@ def generate(target: CachedModel, draft, prompt: list[int], *, max_new_tokens: i
 
         # One target pass over the draft. Row i judges draft token i; row k gives the bonus token.
         p = to_probs(target.logits(tokens + draft_tokens, keep=k + 1), temperature)
+        q = q.to(p.device)  # the draft may live on another GPU
         drafted = torch.tensor([draft_tokens], dtype=torch.long, device=p.device)
         n, next_token = verify(p.unsqueeze(0), q.unsqueeze(0), drafted, generator)
         n = n.item()

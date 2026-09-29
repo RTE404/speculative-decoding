@@ -74,13 +74,16 @@ def check_compatible(target: PreTrainedModel, draft: PreTrainedModel,
 
 
 def load_pair(target_path: str = TARGET_ID, draft_path: str = DRAFT_ID,
-              device: torch.device | None = None, dtype: torch.dtype | None = None) -> ModelPair:
+              device: torch.device | None = None, dtype: torch.dtype | None = None,
+              draft_device: torch.device | None = None) -> ModelPair:
+    """Load both models. The draft goes on `device` too unless `draft_device` is given
+    (the float32 exactness test needs both T4s, since the pair does not fit on one)."""
     device = device or default_device()
     dtype = dtype or default_dtype(device)
     tokenizer = AutoTokenizer.from_pretrained(target_path)
     draft_tokenizer = AutoTokenizer.from_pretrained(draft_path)
     target = load_model(target_path, device, dtype)
-    draft = load_model(draft_path, device, dtype)
+    draft = load_model(draft_path, draft_device or device, dtype)
     check_compatible(target, draft, tokenizer, draft_tokenizer)
     return ModelPair(target, draft, tokenizer, device, dtype)
 
