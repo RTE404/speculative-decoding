@@ -1,35 +1,35 @@
 """Drafts propose up to gamma tokens and the distributions q they were drawn from.
 
 The speculative loop does not know which draft it is using. Both drafts return
-(tokens [k], q [k, V]) with k <= gamma; k may be 0.
+(tokens, q) with len(tokens) = k <= gamma and q of shape [k, V]; k may be 0.
 """
 
 import torch
 
-from specdec.models import real_logits
+from specdec.cache import CachedModel
 from specdec.sampling import sample, to_probs
 
 
 class NeuralDraft:
-    """A small language model that samples gamma tokens one at a time. No KV cache yet."""
+    """A small language model that samples gamma tokens one at a time."""
 
-    def __init__(self, model, vocab_size: int):
-        self.model = model
-        self.vocab_size = vocab_size
+    def __init__(self, lm: CachedModel):
+        self.lm = lm
+        self.vocab_size = lm.vocab_size
 
-    @torch.inference_mode()
-    def propose(self, seq: torch.Tensor, gamma: int, temperature: float,
-                generator: torch.Generator | None = None) -> tuple[torch.Tensor, torch.Tensor]:
-        tokens, dists = [], []
+    def propose(self, tokens: list[int], gamma: int, temperature: float,
+                generator: torch.Generator | None = None) -> tuple[list[int], torch.Tensor]:
+        context = list(tokens)
+        proposed, dists = [], []
         for _ in range(gamma):
-            ids = torch.cat([seq, torch.stack(tokens).view(1, -1)], dim=1) if tokens else seq
-            logits = real_logits(self.model(input_ids=ids, logits_to_keep=1).logits[0, -1], self.vocab_size)
-            q = to_probs(logits, temperature)
-            tokens.append(sample(q, generator))
+            q = to_probs(self.lm.logits(context, keep=1)[0], temperature)
+            token = sample(q, generator).item()
+            proposed.append(token)
             dists.append(q)
-        if not tokens:
-            return seq.new_empty(0), torch.empty(0, self.vocab_size, device=seq.device)
-        return torch.stack(tokens), torch.stack(dists)
+            context.append(token)
+        if not proposed:
+            return [], torch.empty(0, self.vocab_size, device=self.lm.device)
+        return proposed, torch.stack(dists)
 
 
 class PromptLookupDraft:
@@ -39,8 +39,9 @@ class PromptLookupDraft:
     the tokens that followed. Tries n = max_ngram down to 1. Its q is one-hot on each proposal.
     """
 
-    def __init__(self, vocab_size: int, max_ngram: int = 3):
+    def __init__(self, vocab_size: int, device: torch.device | str = "cpu", max_ngram: int = 3):
         self.vocab_size = vocab_size
+        self.device = device
         self.max_ngram = max_ngram
 
     def find(self, tokens: list[int], gamma: int) -> list[int]:
@@ -54,9 +55,8 @@ class PromptLookupDraft:
                     return tokens[start + n:start + n + gamma]
         return []
 
-    def propose(self, seq: torch.Tensor, gamma: int, temperature: float,
-                generator: torch.Generator | None = None) -> tuple[torch.Tensor, torch.Tensor]:
-        found = self.find(seq[0].tolist(), gamma) if gamma > 0 else []
-        tokens = torch.tensor(found, dtype=torch.long, device=seq.device)
-        q = torch.nn.functional.one_hot(tokens, self.vocab_size).float()
-        return tokens, q
+    def propose(self, tokens: list[int], gamma: int, temperature: float,
+                generator: torch.Generator | None = None) -> tuple[list[int], torch.Tensor]:
+        proposed = self.find(tokens, gamma) if gamma > 0 else []
+        q = torch.nn.functional.one_hot(torch.tensor(proposed, dtype=torch.long), self.vocab_size).float()
+        return proposed, q.to(self.device)
