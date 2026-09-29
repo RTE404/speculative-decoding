@@ -304,6 +304,11 @@ Timing repeats for medians happen inside each run, so extra full runs are not ne
 - c ≈ 0.65 and a flat verification cost (section 3).
 - Target speed 21.6 tokens/s, inside the 18 to 30 tokens/s estimate, so the time budget above stands.
 - Download: about 7 GB from Hugging Face in under a minute.
+- A second session (2026-09-30) repeated the check: c = 0.657, target 22.1 tokens/s, verification 0.90 to 0.94 of a single step. Within about 2% of the first.
+
+**Step 3 result (experiment 3, 2026-09-30):** on one code, one maths and one chat prompt, 128 tokens each, with γ = 4:
+- Float32 (target on `cuda:0`, draft on `cuda:1`): both drafts **identical** to the target alone.
+- Float16: both drafts and the baseline identical, and the teacher-forced check found every token to be the target's top choice, with **no near-ties at all**.
 
 ---
 
