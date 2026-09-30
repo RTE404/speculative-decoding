@@ -24,6 +24,15 @@ Greedy decoding, 30 prompts (10 each of code, maths and chat), up to 128 new tok
 
 Full tables (every γ and task, the three prediction layers, costs, correctness and run conditions): [`report/20260930-035822/README.md`](report/20260930-035822/README.md). Raw data: [`results/20260930-035822/`](results/20260930-035822/).
 
+## Reproducibility
+
+The whole run was repeated in a fresh Kaggle session on a different T4 ([`report/20260930-050746/`](report/20260930-050746/README.md)). The only code changes between the two runs were a variable rename in `run.py` and making the Hugging Face token optional in the notebook; the measurement code was identical.
+
+- That T4 was about 6% slower in absolute terms (baseline 20.6 against 22.0 tokens/s; c = 0.663 against 0.650).
+- Every speedup reproduced within **0.4% on average and 1.5% at most**.
+- All 351 generated outputs were **token-for-token identical** between the two runs.
+- An earlier trial run, with slightly older code, agreed within 1.1% on average.
+
 ## Correctness
 
 Speculative decoding must give exactly the target's output. Checked at four levels:
