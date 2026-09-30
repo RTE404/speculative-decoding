@@ -107,10 +107,10 @@ def main() -> None:
 
     if not args.skip_exactness:
         print("\n== Experiment 3: exact match on the real models ==", flush=True)
-        report = exactness.run(args.target, args.draft, max_new)
-        write_json(run_dir / "exactness.json", report)
-        exactness.print_verdict(report)
-        if not report["float32_strict_pass"]:
+        exact = exactness.run(args.target, args.draft, max_new)
+        write_json(run_dir / "exactness.json", exact)
+        exactness.print_verdict(exact)
+        if not exact["float32_strict_pass"]:
             sys.exit("float32 exact match failed: stopping before any timing")
 
     pair = load_pair(args.target, args.draft)
