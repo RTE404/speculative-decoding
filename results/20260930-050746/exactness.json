@@ -1,0 +1,119 @@
+{
+  "near_tie_threshold": 0.1,
+  "gamma": 4,
+  "max_new_tokens": 128,
+  "float32": {
+    "HumanEval/10": {
+      "neural": {
+        "identical": true,
+        "first_mismatch": null
+      },
+      "copy": {
+        "identical": true,
+        "first_mismatch": null
+      }
+    },
+    "spec_bench/413": {
+      "neural": {
+        "identical": true,
+        "first_mismatch": null
+      },
+      "copy": {
+        "identical": true,
+        "first_mismatch": null
+      }
+    },
+    "spec_bench/85": {
+      "neural": {
+        "identical": true,
+        "first_mismatch": null
+      },
+      "copy": {
+        "identical": true,
+        "first_mismatch": null
+      }
+    }
+  },
+  "float16": {
+    "HumanEval/10": {
+      "baseline": {
+        "identical_to_baseline": true,
+        "first_mismatch": null,
+        "tokens": 128,
+        "not_top_choice": 0,
+        "near_ties": [],
+        "failures": []
+      },
+      "neural": {
+        "identical_to_baseline": true,
+        "first_mismatch": null,
+        "tokens": 128,
+        "not_top_choice": 0,
+        "near_ties": [],
+        "failures": []
+      },
+      "copy": {
+        "identical_to_baseline": true,
+        "first_mismatch": null,
+        "tokens": 128,
+        "not_top_choice": 0,
+        "near_ties": [],
+        "failures": []
+      }
+    },
+    "spec_bench/413": {
+      "baseline": {
+        "identical_to_baseline": true,
+        "first_mismatch": null,
+        "tokens": 128,
+        "not_top_choice": 0,
+        "near_ties": [],
+        "failures": []
+      },
+      "neural": {
+        "identical_to_baseline": true,
+        "first_mismatch": null,
+        "tokens": 128,
+        "not_top_choice": 0,
+        "near_ties": [],
+        "failures": []
+      },
+      "copy": {
+        "identical_to_baseline": true,
+        "first_mismatch": null,
+        "tokens": 128,
+        "not_top_choice": 0,
+        "near_ties": [],
+        "failures": []
+      }
+    },
+    "spec_bench/85": {
+      "baseline": {
+        "identical_to_baseline": true,
+        "first_mismatch": null,
+        "tokens": 128,
+        "not_top_choice": 0,
+        "near_ties": [],
+        "failures": []
+      },
+      "neural": {
+        "identical_to_baseline": true,
+        "first_mismatch": null,
+        "tokens": 128,
+        "not_top_choice": 0,
+        "near_ties": [],
+        "failures": []
+      },
+      "copy": {
+        "identical_to_baseline": true,
+        "first_mismatch": null,
+        "tokens": 128,
+        "not_top_choice": 0,
+        "near_ties": [],
+        "failures": []
+      }
+    }
+  },
+  "float32_strict_pass": true,
+  "float16_teacher_forced_pass": true
+}

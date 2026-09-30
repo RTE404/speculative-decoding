@@ -1,0 +1,569 @@
+{
+  "by_config": {
+    "baseline": {
+      "all": {
+        "prompts": 30,
+        "tokens_per_s": 20.607622371835543,
+        "speedup": 1.0,
+        "median_prompt_speedup": 1.0,
+        "differs_from_baseline": 0
+      },
+      "chat": {
+        "prompts": 10,
+        "tokens_per_s": 20.639543152011747,
+        "speedup": 1.0,
+        "median_prompt_speedup": 1.0,
+        "differs_from_baseline": 0
+      },
+      "code": {
+        "prompts": 10,
+        "tokens_per_s": 20.534973482277316,
+        "speedup": 1.0,
+        "median_prompt_speedup": 1.0,
+        "differs_from_baseline": 0
+      },
+      "maths": {
+        "prompts": 10,
+        "tokens_per_s": 20.65033879955514,
+        "speedup": 1.0,
+        "median_prompt_speedup": 1.0,
+        "differs_from_baseline": 0
+      }
+    },
+    "copy-g2": {
+      "all": {
+        "prompts": 30,
+        "tokens_per_s": 31.308273869433414,
+        "speedup": 1.519256967374483,
+        "median_prompt_speedup": 1.426067910383275,
+        "differs_from_baseline": 1,
+        "rounds": 2524,
+        "match_rate": 0.5978605388272583,
+        "alpha_counted": 0.5610412926391383,
+        "alpha_sum_min": 0.5610412926391383,
+        "draft_efficiency": 0.41625041625041626,
+        "tokens_per_round": 1.4952456418383517
+      },
+      "chat": {
+        "prompts": 10,
+        "tokens_per_s": 24.276836508740296,
+        "speedup": 1.1762293540094186,
+        "median_prompt_speedup": 1.16243838517754,
+        "differs_from_baseline": 1,
+        "rounds": 1040,
+        "match_rate": 0.45096153846153847,
+        "alpha_counted": 0.29591836734693877,
+        "alpha_sum_min": 0.29591836734693877,
+        "draft_efficiency": 0.18629550321199143,
+        "tokens_per_round": 1.1673076923076924
+      },
+      "code": {
+        "prompts": 10,
+        "tokens_per_s": 47.910466503638325,
+        "speedup": 2.3331155769442504,
+        "median_prompt_speedup": 2.4620230974665693,
+        "differs_from_baseline": 0,
+        "rounds": 566,
+        "match_rate": 0.8763250883392226,
+        "alpha_counted": 0.8254335260115607,
+        "alpha_sum_min": 0.8254335260115607,
+        "draft_efficiency": 0.7241379310344828,
+        "tokens_per_round": 2.2614840989399294
+      },
+      "maths": {
+        "prompts": 10,
+        "tokens_per_s": 29.210273241807368,
+        "speedup": 1.4145178694325649,
+        "median_prompt_speedup": 1.426067910383275,
+        "differs_from_baseline": 0,
+        "rounds": 918,
+        "match_rate": 0.5925925925925926,
+        "alpha_counted": 0.4670967741935484,
+        "alpha_sum_min": 0.4670967741935484,
+        "draft_efficiency": 0.33425669436749766,
+        "tokens_per_round": 1.3943355119825709
+      }
+    },
+    "copy-g4": {
+      "all": {
+        "prompts": 30,
+        "tokens_per_s": 34.08452241823591,
+        "speedup": 1.6539764657576055,
+        "median_prompt_speedup": 1.52882018457245,
+        "differs_from_baseline": 2,
+        "rounds": 2294,
+        "match_rate": 0.560156931124673,
+        "alpha_counted": 0.593186372745491,
+        "alpha_sum_min": 0.593186372745491,
+        "draft_efficiency": 0.2965931863727455,
+        "tokens_per_round": 1.6451612903225807
+      },
+      "chat": {
+        "prompts": 10,
+        "tokens_per_s": 24.648661483126492,
+        "speedup": 1.194244528650043,
+        "median_prompt_speedup": 1.1943347686783627,
+        "differs_from_baseline": 1,
+        "rounds": 1021,
+        "match_rate": 0.4407443682664055,
+        "alpha_counted": 0.3097913322632424,
+        "alpha_sum_min": 0.3097913322632424,
+        "draft_efficiency": 0.11053837342497136,
+        "tokens_per_round": 1.189030362389814
+      },
+      "code": {
+        "prompts": 10,
+        "tokens_per_s": 63.34229660464383,
+        "speedup": 3.0846057171347856,
+        "median_prompt_speedup": 3.3006592260697136,
+        "differs_from_baseline": 1,
+        "rounds": 418,
+        "match_rate": 0.8444976076555024,
+        "alpha_counted": 0.8509378084896347,
+        "alpha_sum_min": 0.8509378084896347,
+        "draft_efficiency": 0.6291970802919709,
+        "tokens_per_round": 3.062200956937799
+      },
+      "maths": {
+        "prompts": 10,
+        "tokens_per_s": 31.019091277142024,
+        "speedup": 1.5021105260418417,
+        "median_prompt_speedup": 1.52882018457245,
+        "differs_from_baseline": 0,
+        "rounds": 855,
+        "match_rate": 0.5637426900584795,
+        "alpha_counted": 0.4947613504074505,
+        "alpha_sum_min": 0.4947613504074505,
+        "draft_efficiency": 0.22678762006403416,
+        "tokens_per_round": 1.4970760233918128
+      }
+    },
+    "copy-g8": {
+      "all": {
+        "prompts": 30,
+        "tokens_per_s": 36.254512827338516,
+        "speedup": 1.7592768429650376,
+        "median_prompt_speedup": 1.56737671568193,
+        "differs_from_baseline": 0,
+        "rounds": 2154,
+        "match_rate": 0.5292479108635098,
+        "alpha_counted": 0.6150929086082669,
+        "alpha_sum_min": 0.6150929086082669,
+        "draft_efficiency": 0.1958937198067633,
+        "tokens_per_round": 1.7530176415970289
+      },
+      "chat": {
+        "prompts": 10,
+        "tokens_per_s": 24.829369369965953,
+        "speedup": 1.202999949519029,
+        "median_prompt_speedup": 1.1984282589041964,
+        "differs_from_baseline": 0,
+        "rounds": 1010,
+        "match_rate": 0.43267326732673267,
+        "alpha_counted": 0.3213728549141966,
+        "alpha_sum_min": 0.3213728549141966,
+        "draft_efficiency": 0.06502525252525253,
+        "tokens_per_round": 1.203960396039604
+      },
+      "code": {
+        "prompts": 10,
+        "tokens_per_s": 83.88381707644974,
+        "speedup": 4.084924538560791,
+        "median_prompt_speedup": 4.6531439363086555,
+        "differs_from_baseline": 0,
+        "rounds": 311,
+        "match_rate": 0.7813504823151125,
+        "alpha_counted": 0.8817106460418562,
+        "alpha_sum_min": 0.8817106460418562,
+        "draft_efficiency": 0.5540308747855918,
+        "tokens_per_round": 4.115755627009646
+      },
+      "maths": {
+        "prompts": 10,
+        "tokens_per_s": 32.064859152968964,
+        "speedup": 1.5527522073226092,
+        "median_prompt_speedup": 1.56737671568193,
+        "differs_from_baseline": 0,
+        "rounds": 833,
+        "match_rate": 0.5522208883553421,
+        "alpha_counted": 0.4983277591973244,
+        "alpha_sum_min": 0.4983277591973244,
+        "draft_efficiency": 0.13291703835860838,
+        "tokens_per_round": 1.5366146458583434
+      }
+    },
+    "neural-g1": {
+      "all": {
+        "prompts": 30,
+        "tokens_per_s": 24.560894132679955,
+        "speedup": 1.191835413591786,
+        "median_prompt_speedup": 1.233721115413386,
+        "differs_from_baseline": 1,
+        "rounds": 2025,
+        "match_rate": 0.9920987654320987,
+        "alpha_counted": 0.8715778994524639,
+        "alpha_sum_min": 0.8715778994524639,
+        "draft_efficiency": 0.8715778994524639,
+        "tokens_per_round": 1.8646913580246913
+      },
+      "chat": {
+        "prompts": 10,
+        "tokens_per_s": 22.53411929867892,
+        "speedup": 1.0917935117416835,
+        "median_prompt_speedup": 1.1308935659972694,
+        "differs_from_baseline": 0,
+        "rounds": 707,
+        "match_rate": 0.9886845827439887,
+        "alpha_counted": 0.7281831187410587,
+        "alpha_sum_min": 0.7281831187410587,
+        "draft_efficiency": 0.7281831187410587,
+        "tokens_per_round": 1.71994342291372
+      },
+      "code": {
+        "prompts": 10,
+        "tokens_per_s": 25.931723578610494,
+        "speedup": 1.2628077460626301,
+        "median_prompt_speedup": 1.2669976509574608,
+        "differs_from_baseline": 1,
+        "rounds": 649,
+        "match_rate": 0.9938366718027735,
+        "alpha_counted": 0.9782945736434109,
+        "alpha_sum_min": 0.9782945736434109,
+        "draft_efficiency": 0.9782945736434109,
+        "tokens_per_round": 1.9722650231124808
+      },
+      "maths": {
+        "prompts": 10,
+        "tokens_per_s": 25.388097721907993,
+        "speedup": 1.2294276606471424,
+        "median_prompt_speedup": 1.239995427955741,
+        "differs_from_baseline": 0,
+        "rounds": 669,
+        "match_rate": 0.9940209267563528,
+        "alpha_counted": 0.9187969924812031,
+        "alpha_sum_min": 0.9187969924812031,
+        "draft_efficiency": 0.9187969924812031,
+        "tokens_per_round": 1.913303437967115
+      }
+    },
+    "neural-g2": {
+      "all": {
+        "prompts": 30,
+        "tokens_per_s": 24.062713480093834,
+        "speedup": 1.167660831798838,
+        "median_prompt_speedup": 1.2487062705342111,
+        "differs_from_baseline": 0,
+        "rounds": 1450,
+        "match_rate": 0.9910344827586207,
+        "alpha_counted": 0.8754234098607452,
+        "alpha_sum_min": 0.8754234098607452,
+        "draft_efficiency": 0.8124345092560251,
+        "tokens_per_round": 2.6041379310344825
+      },
+      "chat": {
+        "prompts": 10,
+        "tokens_per_s": 20.543200561943674,
+        "speedup": 0.995332135534275,
+        "median_prompt_speedup": 1.0622527091856346,
+        "differs_from_baseline": 0,
+        "rounds": 544,
+        "match_rate": 0.9871323529411765,
+        "alpha_counted": 0.732824427480916,
+        "alpha_sum_min": 0.732824427480916,
+        "draft_efficiency": 0.6268656716417911,
+        "tokens_per_round": 2.235294117647059
+      },
+      "code": {
+        "prompts": 10,
+        "tokens_per_s": 27.185692427863778,
+        "speedup": 1.3238727798371084,
+        "median_prompt_speedup": 1.3269902418698343,
+        "differs_from_baseline": 0,
+        "rounds": 438,
+        "match_rate": 0.9885844748858448,
+        "alpha_counted": 0.9836448598130841,
+        "alpha_sum_min": 0.9836448598130841,
+        "draft_efficiency": 0.9767981438515081,
+        "tokens_per_round": 2.922374429223744
+      },
+      "maths": {
+        "prompts": 10,
+        "tokens_per_s": 25.2727889336082,
+        "speedup": 1.2238437915678477,
+        "median_prompt_speedup": 1.2487062705342111,
+        "differs_from_baseline": 0,
+        "rounds": 468,
+        "match_rate": 0.9978632478632479,
+        "alpha_counted": 0.918552036199095,
+        "alpha_sum_min": 0.918552036199095,
+        "draft_efficiency": 0.8740581270182992,
+        "tokens_per_round": 2.735042735042735
+      }
+    },
+    "neural-g3": {
+      "all": {
+        "prompts": 30,
+        "tokens_per_s": 22.870442934111555,
+        "speedup": 1.1098050285203505,
+        "median_prompt_speedup": 1.2240499454401224,
+        "differs_from_baseline": 2,
+        "rounds": 1172,
+        "match_rate": 0.9931740614334471,
+        "alpha_counted": 0.8709030100334448,
+        "alpha_sum_min": 0.8709030100334448,
+        "draft_efficiency": 0.751081626766657,
+        "tokens_per_round": 3.2218430034129693
+      },
+      "chat": {
+        "prompts": 10,
+        "tokens_per_s": 18.20097670188963,
+        "speedup": 0.8818497855227756,
+        "median_prompt_speedup": 0.9417191057738308,
+        "differs_from_baseline": 2,
+        "rounds": 473,
+        "match_rate": 0.9915433403805497,
+        "alpha_counted": 0.7227626459143969,
+        "alpha_sum_min": 0.7227626459143969,
+        "draft_efficiency": 0.5318539727988547,
+        "tokens_per_round": 2.570824524312896
+      },
+      "code": {
+        "prompts": 10,
+        "tokens_per_s": 27.19655246033755,
+        "speedup": 1.3244016352789305,
+        "median_prompt_speedup": 1.3552783336888234,
+        "differs_from_baseline": 0,
+        "rounds": 333,
+        "match_rate": 0.990990990990991,
+        "alpha_counted": 0.9783057851239669,
+        "alpha_sum_min": 0.9783057851239669,
+        "draft_efficiency": 0.9594731509625126,
+        "tokens_per_round": 3.843843843843844
+      },
+      "maths": {
+        "prompts": 10,
+        "tokens_per_s": 24.985584865467676,
+        "speedup": 1.2099358324332155,
+        "median_prompt_speedup": 1.2240499454401224,
+        "differs_from_baseline": 0,
+        "rounds": 366,
+        "match_rate": 0.9972677595628415,
+        "alpha_counted": 0.9195171026156942,
+        "alpha_sum_min": 0.9195171026156942,
+        "draft_efficiency": 0.8439519852262235,
+        "tokens_per_round": 3.4972677595628414
+      }
+    },
+    "neural-g4": {
+      "all": {
+        "prompts": 30,
+        "tokens_per_s": 21.57588285443414,
+        "speedup": 1.0469855505466716,
+        "median_prompt_speedup": 1.1840711276456055,
+        "differs_from_baseline": 2,
+        "rounds": 1016,
+        "match_rate": 0.9921259842519685,
+        "alpha_counted": 0.8695652173913043,
+        "alpha_sum_min": 0.8695652173913043,
+        "draft_efficiency": 0.6936416184971098,
+        "tokens_per_round": 3.716535433070866
+      },
+      "chat": {
+        "prompts": 10,
+        "tokens_per_s": 16.112511032903218,
+        "speedup": 0.7806621936461187,
+        "median_prompt_speedup": 0.8166049360714439,
+        "differs_from_baseline": 2,
+        "rounds": 435,
+        "match_rate": 0.993103448275862,
+        "alpha_counted": 0.7178308823529411,
+        "alpha_sum_min": 0.7178308823529411,
+        "draft_efficiency": 0.45752782659636787,
+        "tokens_per_round": 2.7954022988505747
+      },
+      "code": {
+        "prompts": 10,
+        "tokens_per_s": 27.545087228214516,
+        "speedup": 1.3413743753790222,
+        "median_prompt_speedup": 1.3804449727891899,
+        "differs_from_baseline": 0,
+        "rounds": 272,
+        "match_rate": 0.9926470588235294,
+        "alpha_counted": 0.9795918367346939,
+        "alpha_sum_min": 0.9795918367346939,
+        "draft_efficiency": 0.9482596425211665,
+        "tokens_per_round": 4.705882352941177
+      },
+      "maths": {
+        "prompts": 10,
+        "tokens_per_s": 24.11833866833392,
+        "speedup": 1.167939126928682,
+        "median_prompt_speedup": 1.1840711276456055,
+        "differs_from_baseline": 0,
+        "rounds": 309,
+        "match_rate": 0.9902912621359223,
+        "alpha_counted": 0.9186376537369915,
+        "alpha_sum_min": 0.9186376537369915,
+        "draft_efficiency": 0.8031430934656741,
+        "tokens_per_round": 4.142394822006472
+      }
+    },
+    "neural-g6": {
+      "all": {
+        "prompts": 30,
+        "tokens_per_s": 19.428190720714106,
+        "speedup": 0.9427672135173941,
+        "median_prompt_speedup": 1.141329411511366,
+        "differs_from_baseline": 3,
+        "rounds": 827,
+        "match_rate": 0.9939540507859734,
+        "alpha_counted": 0.8753339269813001,
+        "alpha_sum_min": 0.8753339269813001,
+        "draft_efficiency": 0.611318407960199,
+        "tokens_per_round": 4.56590084643289
+      },
+      "chat": {
+        "prompts": 10,
+        "tokens_per_s": 13.291645388753636,
+        "speedup": 0.6439893214137393,
+        "median_prompt_speedup": 0.7095932078645169,
+        "differs_from_baseline": 2,
+        "rounds": 387,
+        "match_rate": 0.9922480620155039,
+        "alpha_counted": 0.7297535211267606,
+        "alpha_sum_min": 0.7297535211267606,
+        "draft_efficiency": 0.3648767605633803,
+        "tokens_per_round": 3.1421188630490957
+      },
+      "code": {
+        "prompts": 10,
+        "tokens_per_s": 27.237436065930527,
+        "speedup": 1.3263925609369676,
+        "median_prompt_speedup": 1.36711874908573,
+        "differs_from_baseline": 1,
+        "rounds": 202,
+        "match_rate": 0.995049504950495,
+        "alpha_counted": 0.9808917197452229,
+        "alpha_sum_min": 0.9808917197452229,
+        "draft_efficiency": 0.9301121656600517,
+        "tokens_per_round": 6.336633663366337
+      },
+      "maths": {
+        "prompts": 10,
+        "tokens_per_s": 22.907635578685507,
+        "speedup": 1.109310399264684,
+        "median_prompt_speedup": 1.1296973109624875,
+        "differs_from_baseline": 0,
+        "rounds": 238,
+        "match_rate": 0.9957983193277311,
+        "alpha_counted": 0.9188712522045855,
+        "alpha_sum_min": 0.9188712522045855,
+        "draft_efficiency": 0.7480258435032304,
+        "tokens_per_round": 5.378151260504202
+      }
+    }
+  },
+  "repeat_spread": {
+    "baseline": {
+      "speedups": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stdev": 0.0
+    },
+    "copy-g2": {
+      "speedups": [
+        1.3978663462899485,
+        1.4033645016128986,
+        1.3897234198282442
+      ],
+      "stdev": 0.006863139169646773
+    },
+    "copy-g4": {
+      "speedups": [
+        1.4921692240342943,
+        1.4873672003135041,
+        1.4795375386238023
+      ],
+      "stdev": 0.006376029463282137
+    },
+    "copy-g8": {
+      "speedups": [
+        1.550608349679262,
+        1.540594685142642,
+        1.554682586920727
+      ],
+      "stdev": 0.007249619105634377
+    },
+    "neural-g1": {
+      "speedups": [
+        1.1583242623077883,
+        1.157719942555448,
+        1.1510123331659528
+      ],
+      "stdev": 0.0040583562735902945
+    },
+    "neural-g2": {
+      "speedups": [
+        1.06708960663558,
+        1.0730944990201101,
+        1.071849225982742
+      ],
+      "stdev": 0.0031692116216619527
+    },
+    "neural-g3": {
+      "speedups": [
+        1.0029271591661202,
+        1.0050910663971755,
+        1.01163421275723
+      ],
+      "stdev": 0.004533358597334608
+    },
+    "neural-g4": {
+      "speedups": [
+        0.9267059112078245,
+        0.9264371314300335,
+        0.917087955598444
+      ],
+      "stdev": 0.0054769882448133175
+    },
+    "neural-g6": {
+      "speedups": [
+        0.7856478548786131,
+        0.7849650210862311,
+        0.7841673911549615
+      ],
+      "stdev": 0.0007409732712593185
+    }
+  },
+  "peak_memory_gb": 7.438012416,
+  "costs": {
+    "context_tokens": 250,
+    "target_step_ms": 47.95717999996896,
+    "draft_step_ms": 31.811002500091945,
+    "lookup_ms": 0.019359000020813255,
+    "c_neural": 0.6633209563221302,
+    "c_copy": 0.00040367261004141164,
+    "verify_ms": {
+      "1": 47.96041349999314,
+      "2": 44.783439000013914,
+      "3": 45.25061249995588,
+      "4": 44.53742499998725,
+      "5": 44.74068549995991,
+      "7": 47.657977999961076,
+      "9": 48.69952100000319,
+      "16": 48.808280000002924
+    },
+    "verify_ratio": {
+      "1": 1.0,
+      "2": 0.9337584005613363,
+      "3": 0.9434992152426366,
+      "4": 0.9286288784810753,
+      "5": 0.932866967461953,
+      "7": 0.9936940597888694,
+      "9": 1.0154107824781402,
+      "16": 1.017678465178577
+    }
+  }
+}
