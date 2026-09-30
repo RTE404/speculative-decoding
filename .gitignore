@@ -5,3 +5,6 @@ __pycache__/
 
 # The paper is the authors' copyrighted work; link to arXiv instead of committing it.
 Speculative Decoding.pdf
+
+# Trial runs are for debugging and are not published (plan, section 9).
+results/trial/
