@@ -306,6 +306,15 @@ Timing repeats for medians happen inside each run, so extra full runs are not ne
 - Download: about 7 GB from Hugging Face in under a minute.
 - A second session (2026-09-30) repeated the check: c = 0.657, target 22.1 tokens/s, verification 0.90 to 0.94 of a single step. Within about 2% of the first.
 
+**Trial run (2026-09-30, run 20260930-024815, not published):** the full pipeline ran end to end in about an hour.
+- Best settings: copy draft γ = 8 at 1.69× overall (code 3.91×, maths 1.50×, chat 1.16×); 0.5B draft γ = 1 at 1.20× (code 1.27×, maths 1.23×, chat 1.10×). The 0.5B draft falls below 1× on chat from γ = 3.
+- α for the 0.5B draft: code 0.98, maths 0.92, chat 0.72. Copy draft: α 0.88 / 0.50 / 0.32 and match rate 78% / 55% / 43%.
+- c = 0.640; verification of 2 to 16 tokens 0.93 to 0.95 of a step.
+- Theory: layer C of experiment 6 predicts the 0.5B draft within 2 to 6% on every task and γ. The paper's formula (A) overshoots the copy draft (for example 5.7× predicted against 3.9× on code) because it assumes a proposal every round; using measured proposal lengths (B) closes most of the gap.
+- 11 of 240 speculative outputs differed from the baseline in float16. From the final run on, each is re-checked automatically.
+- The T4 ran at 75 to 81 °C with the SM clock between 1170 and 1575 MHz, so interleaving matters.
+- Disclosure for the write-up: the code prompts ask for "the full function", so the model repeats the docstring, which favours the copy draft.
+
 **Step 3 result (experiment 3, 2026-09-30):** on one code, one maths and one chat prompt, 128 tokens each, with γ = 4:
 - Float32 (target on `cuda:0`, draft on `cuda:1`): both drafts **identical** to the target alone.
 - Float16: both drafts and the baseline identical, and the teacher-forced check found every token to be the target's top choice, with **no near-ties at all**.
