@@ -18,10 +18,10 @@ measured on Qwen2.5-3B and checked against the paper's own theory.
 
 <table>
 <tr>
-<td align="center" width="25%"><h1>1.76×</h1>faster overall<br/><sub>with a draft that just copies<br/>from the context</sub></td>
-<td align="center" width="25%"><h1>4.08×</h1>faster on code<br/><sub>same draft, when the answer<br/>echoes the prompt</sub></td>
-<td align="center" width="25%"><h1>1.4%</h1>theory error<br/><sub>the paper's model, with<br/>measured costs</sub></td>
-<td align="center" width="25%"><h1>0.4%</h1>run-to-run spread<br/><sub>repeated in a fresh session<br/>on a different GPU</sub></td>
+<td align="center" width="25%"><h1>1.76×</h1>faster overall<br/><sub>copying from the context</sub></td>
+<td align="center" width="25%"><h1>4.08×</h1>faster on code<br/><sub>the answer echoes the prompt</sub></td>
+<td align="center" width="25%"><h1>1.4%</h1>theory error<br/><sub>paper's model, measured costs</sub></td>
+<td align="center" width="25%"><h1>0.4%</h1>run-to-run spread<br/><sub>repeated on another GPU</sub></td>
 </tr>
 </table>
 
