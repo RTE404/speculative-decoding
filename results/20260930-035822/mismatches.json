@@ -1,0 +1,245 @@
+[
+  {
+    "prompt_id": "HumanEval/91",
+    "config": "neural-g6",
+    "repeat": 0,
+    "first_mismatch": 105,
+    "speculative": {
+      "tokens": 128,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 128,
+      "not_top_choice": 1,
+      "near_ties": [
+        {
+          "position": 105,
+          "gap": 0.015625
+        }
+      ],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "HumanEval/91",
+    "config": "copy-g4",
+    "repeat": 0,
+    "first_mismatch": 105,
+    "speculative": {
+      "tokens": 128,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 128,
+      "not_top_choice": 1,
+      "near_ties": [
+        {
+          "position": 105,
+          "gap": 0.015625
+        }
+      ],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "HumanEval/91",
+    "config": "neural-g1",
+    "repeat": 0,
+    "first_mismatch": 105,
+    "speculative": {
+      "tokens": 128,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 128,
+      "not_top_choice": 1,
+      "near_ties": [
+        {
+          "position": 105,
+          "gap": 0.015625
+        }
+      ],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "spec_bench/92",
+    "config": "neural-g3",
+    "repeat": 0,
+    "first_mismatch": 90,
+    "speculative": {
+      "tokens": 128,
+      "not_top_choice": 1,
+      "near_ties": [
+        {
+          "position": 90,
+          "gap": 0.03125
+        }
+      ],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 128,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "spec_bench/92",
+    "config": "neural-g4",
+    "repeat": 0,
+    "first_mismatch": 90,
+    "speculative": {
+      "tokens": 128,
+      "not_top_choice": 1,
+      "near_ties": [
+        {
+          "position": 90,
+          "gap": 0.03125
+        }
+      ],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 128,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "spec_bench/92",
+    "config": "neural-g6",
+    "repeat": 0,
+    "first_mismatch": 90,
+    "speculative": {
+      "tokens": 128,
+      "not_top_choice": 1,
+      "near_ties": [
+        {
+          "position": 90,
+          "gap": 0.03125
+        }
+      ],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 128,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "spec_bench/102",
+    "config": "copy-g2",
+    "repeat": 0,
+    "first_mismatch": 47,
+    "speculative": {
+      "tokens": 62,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 64,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "spec_bench/102",
+    "config": "copy-g4",
+    "repeat": 0,
+    "first_mismatch": 47,
+    "speculative": {
+      "tokens": 62,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 64,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "spec_bench/125",
+    "config": "neural-g3",
+    "repeat": 0,
+    "first_mismatch": 2,
+    "speculative": {
+      "tokens": 128,
+      "not_top_choice": 1,
+      "near_ties": [
+        {
+          "position": 2,
+          "gap": 0.015625
+        }
+      ],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 128,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "spec_bench/125",
+    "config": "neural-g4",
+    "repeat": 0,
+    "first_mismatch": 2,
+    "speculative": {
+      "tokens": 128,
+      "not_top_choice": 1,
+      "near_ties": [
+        {
+          "position": 2,
+          "gap": 0.015625
+        }
+      ],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 128,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    }
+  },
+  {
+    "prompt_id": "spec_bench/125",
+    "config": "neural-g6",
+    "repeat": 0,
+    "first_mismatch": 2,
+    "speculative": {
+      "tokens": 128,
+      "not_top_choice": 1,
+      "near_ties": [
+        {
+          "position": 2,
+          "gap": 0.015625
+        }
+      ],
+      "failures": []
+    },
+    "baseline": {
+      "tokens": 128,
+      "not_top_choice": 0,
+      "near_ties": [],
+      "failures": []
+    }
+  }
+]

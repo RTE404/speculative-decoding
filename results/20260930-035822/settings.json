@@ -1,0 +1,21 @@
+{
+  "run_id": "20260930-035822",
+  "quick": false,
+  "prompts_per_task": 10,
+  "max_new_tokens": 128,
+  "repeats": 3,
+  "target": "Qwen/Qwen2.5-3B-Instruct",
+  "draft": "Qwen/Qwen2.5-0.5B-Instruct",
+  "git_commit": "5603bf11af4fe16f45324e5dafcafb18c15cd374",
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "transformers": "5.17.0",
+    "cuda": "12.8",
+    "gpus": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "accelerate": "1.13.0"
+  }
+}
