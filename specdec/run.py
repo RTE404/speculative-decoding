@@ -17,7 +17,7 @@ from pathlib import Path
 
 import torch
 
-from specdec import baseline, benchmark, costs, exactness, summary
+from specdec import baseline, benchmark, costs, exactness, report, summary
 from specdec.cache import CachedModel
 from specdec.check_env import environment
 from specdec.drafts import NeuralDraft, PromptLookupDraft
@@ -55,6 +55,26 @@ def select_prompts(tokenizer, device, per_task: int) -> list[dict]:
         for prompt in [p for p in prompts if p["task"] == task][:per_task]:
             chosen.append({**prompt, "ids": encode_prompt(tokenizer, prompt["prompt"], device)[0].tolist()})
     return chosen
+
+
+def check_mismatches(target_model, prompts: list[dict], records: list[dict]) -> list[dict]:
+    """Teacher-forced check (experiment 3's) of every speculative output that differs from the
+    baseline output for the same prompt and pass: is each token the target's top choice or a near-tie?"""
+    ids = {p["source_id"]: p["ids"] for p in prompts}
+    base = {(r["prompt_id"], r["repeat"]): r["tokens"] for r in records if r["draft"] is None}
+    checks = []
+    for r in records:
+        reference = base[(r["prompt_id"], r["repeat"])]
+        if r["draft"] is None or r["tokens"] == reference:
+            continue
+        prompt = ids[r["prompt_id"]]
+        checks.append({
+            "prompt_id": r["prompt_id"], "config": r["config"], "repeat": r["repeat"],
+            "first_mismatch": exactness.first_mismatch(r["tokens"], reference),
+            "speculative": exactness.teacher_forced_check(target_model, prompt, r["tokens"]),
+            "baseline": exactness.teacher_forced_check(target_model, prompt, reference),
+        })
+    return checks
 
 
 def main() -> None:
@@ -119,6 +139,12 @@ def main() -> None:
         print(f"-- repeat {repeat} of {repeats} (one prompt per task) --", flush=True)
         records += benchmark.sweep(runner, subset, configs, max_new, runs_path, repeat=repeat)
 
+    print("\n== Checking every output that differs from the baseline ==", flush=True)
+    mismatches = check_mismatches(pair.target, prompts, records)
+    write_json(run_dir / "mismatches.json", mismatches)
+    explained = sum(not m["speculative"]["failures"] and not m["baseline"]["failures"] for m in mismatches)
+    print(f"{len(mismatches)} outputs differ from the baseline; {explained} are explained by near-ties", flush=True)
+
     result = summary.summarise(records)
     if pair.device.type == "cuda":
         result["peak_memory_gb"] = torch.cuda.max_memory_allocated(pair.device) / 1e9
@@ -128,6 +154,7 @@ def main() -> None:
     summary.print_table(result)
     print(f"\nc (neural) = {cost_report['c_neural']:.3f}, c (copy) = {cost_report['c_copy']:.4f}")
     print(f"saved everything in results/{run_id}/")
+    print(f"report written to {report.write(run_dir).relative_to(ROOT)}/README.md")
 
 
 if __name__ == "__main__":
