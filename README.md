@@ -133,7 +133,7 @@ Yes, once it's fed measured inputs. The prediction is built up in three layers, 
 | **The cache** | a 300-step random walk of appends, rewrites and rollbacks, each compared with a fresh forward pass | ✅ |
 | **The tests themselves** | four deliberately planted bugs; the tests catch every one | ✅ |
 | **The real models, float32** | speculative output identical to the 3B alone, token for token | ✅ |
-| **Every benchmark output, float16** | 229 of 240 identical; the other 11 are exact ties flipped by rounding (logit gaps 0.016 to 0.031), confirmed by re-reading each one | ✅ |
+| **Every benchmark output, float16** | 229 of 240 identical; the other 11 are near-ties flipped by float16 rounding (logit gaps 0.016 to 0.031), confirmed by re-reading each one | ✅ |
 
 ---
 
