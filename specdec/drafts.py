@@ -58,5 +58,6 @@ class PromptLookupDraft:
     def propose(self, tokens: list[int], gamma: int, temperature: float,
                 generator: torch.Generator | None = None) -> tuple[list[int], torch.Tensor]:
         proposed = self.find(tokens, gamma) if gamma > 0 else []
-        q = torch.nn.functional.one_hot(torch.tensor(proposed, dtype=torch.long), self.vocab_size).float()
-        return proposed, q.to(self.device)
+        # Build q directly on the GPU: a one-hot row is 0.6 MB, too much to copy over every round.
+        ids = torch.tensor(proposed, dtype=torch.long, device=self.device)
+        return proposed, torch.nn.functional.one_hot(ids, self.vocab_size).float()
