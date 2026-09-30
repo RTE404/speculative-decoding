@@ -20,7 +20,7 @@ measured on Qwen2.5-3B and checked against the paper's own theory.
 <tr>
 <td align="center" width="25%"><h1>1.76×</h1>faster overall<br/><sub>with a draft that just copies<br/>from the context</sub></td>
 <td align="center" width="25%"><h1>4.08×</h1>faster on code<br/><sub>same draft, when the answer<br/>echoes the prompt</sub></td>
-<td align="center" width="25%"><h1>1.4%</h1>theory error<br/><sub>the paper's model, fed measured<br/>costs, predicts every result</sub></td>
+<td align="center" width="25%"><h1>1.4%</h1>theory error<br/><sub>the paper's model, with<br/>measured costs</sub></td>
 <td align="center" width="25%"><h1>0.4%</h1>run-to-run spread<br/><sub>repeated in a fresh session<br/>on a different GPU</sub></td>
 </tr>
 </table>
@@ -39,12 +39,12 @@ measured on Qwen2.5-3B and checked against the paper's own theory.
 Generating text normally takes **one full pass of the big model per token**. But a pass that *checks* many tokens costs about the same as a pass that *writes* one. So let something cheap guess ahead, and let the big model verify all the guesses at once:
 
 ```mermaid
-flowchart LR
-    A(["text so far"]) --> B["<b>draft</b> guesses<br/>the next γ tokens"]
-    B --> C["<b>3B model</b> checks<br/>all γ in one pass"]
-    C --> D{"do the guesses match<br/>what the 3B would write?"}
-    D -- "keep every guess<br/>up to the first mismatch" --> E["+1 token from the 3B:<br/>a correction, or a free bonus"]
-    E --> A
+flowchart TB
+    A(["text so far"]) --> B["<b>1. draft</b><br/>guess the next γ tokens"]
+    B --> C["<b>2. verify</b><br/>the 3B model checks all γ in one pass"]
+    C --> D["<b>3. accept</b><br/>keep every guess up to the first mismatch"]
+    D --> E["<b>4. correct</b><br/>+1 token from the 3B: a fix, or a free bonus"]
+    E -- repeat --> A
 
     classDef draft fill:#eb6834,stroke:#eb6834,color:#ffffff
     classDef target fill:#2a78d6,stroke:#2a78d6,color:#ffffff
@@ -71,7 +71,9 @@ The copy draft finds nothing to copy for four passes, then recognises the docstr
 
 The paper predicts the speedup from three quantities: how often guesses are accepted (**α**), how many are drafted per round (**γ**), and how much one draft step costs relative to one target step (**c**):
 
-$$\text{speedup} \;=\; \frac{1-\alpha^{\gamma+1}}{(1-\alpha)\,(\gamma c+1)}$$
+```math
+\text{speedup} = \frac{1-\alpha^{\gamma+1}}{(1-\alpha)(\gamma c+1)}
+```
 
 The paper's drafts are about 100× smaller than the target, so **c < 0.05**. Here the 0.5B draft is 6× smaller, but on a T4 in plain PyTorch each step's time is mostly fixed framework overhead, not model size:
 
