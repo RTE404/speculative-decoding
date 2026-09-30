@@ -306,6 +306,8 @@ Timing repeats for medians happen inside each run, so extra full runs are not ne
 - Download: about 7 GB from Hugging Face in under a minute.
 - A second session (2026-09-30) repeated the check: c = 0.657, target 22.1 tokens/s, verification 0.90 to 0.94 of a single step. Within about 2% of the first.
 
+**Final run (2026-09-30, run 20260930-035822, published in `results/` and `report/`):** 39 minutes end to end with "Save & Run All" (tests 5.5 minutes, exact match 3 minutes, sweep and repeats 29 minutes). All 37 tests and both exact-match checks passed; 11 of 240 float16 outputs differed from the baseline and all 11 were near-ties (logit gaps 0.016 to 0.031). Results match the trial run within 1.1% on average and 4.3% at most. Copy draft γ = 8: 1.76× overall; 0.5B draft γ = 1: 1.19×; c = 0.650. Layer C of experiment 6 is within about 3% of every measurement. The run crashed at its last step (building the report) because of a variable name in `run.py`; the report was generated from the saved results, and the bug is fixed.
+
 **Trial run (2026-09-30, run 20260930-024815, not published):** the full pipeline ran end to end in about an hour.
 - Best settings: copy draft γ = 8 at 1.69× overall (code 3.91×, maths 1.50×, chat 1.16×); 0.5B draft γ = 1 at 1.20× (code 1.27×, maths 1.23×, chat 1.10×). The 0.5B draft falls below 1× on chat from γ = 3.
 - α for the 0.5B draft: code 0.98, maths 0.92, chat 0.72. Copy draft: α 0.88 / 0.50 / 0.32 and match rate 78% / 55% / 43%.
