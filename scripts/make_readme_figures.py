@@ -189,6 +189,7 @@ def trace(data, theme, tokenizer):
                 ("neural-g4", "spec_bench/413", "neural", "0.5B draft, γ = 4, on a maths prompt")]
     rows_per = 7
     fig, axes = plt.subplots(2, 1, figsize=(10, 5.6))
+    widest = 0.0
     for ax, (config, prompt_id, draft, title) in zip(axes, examples):
         rec = next(r for r in data["runs"] if r["config"] == config and r["prompt_id"] == prompt_id
                    and r["repeat"] == 0)
@@ -214,11 +215,15 @@ def trace(data, theme, tokenizer):
                 ax.text(x + width / 2, y, label, color=t["ink"], fontsize=8.5, ha="center", va="center",
                         family="DejaVu Sans Mono")
                 x += width + 0.5
+            widest = max(widest, x)
+    for ax in axes:  # crop to the widest row, so the tokens fill the figure
+        ax.set_xlim(0, widest + 1)
+    fig.set_size_inches(10 * (widest + 1) / 100 + 1.2, 5.6)
     handles = [FancyBboxPatch((0, 0), 1, 1, facecolor=t["copy"], alpha=0.3, edgecolor=t["copy"]),
                FancyBboxPatch((0, 0), 1, 1, facecolor=t["neural"], alpha=0.3, edgecolor=t["neural"]),
                FancyBboxPatch((0, 0), 1, 1, facecolor=t["target"], alpha=0.45, edgecolor=t["target"])]
     fig.legend(handles, ["guessed by the copy draft, accepted", "guessed by the 0.5B draft, accepted",
-                         "written by the 3B model"], loc="lower center", ncol=3, frameon=False, fontsize=9.5,
+                         "written by the 3B model"], loc="lower center", ncol=2, frameon=False, fontsize=9.5,
                labelcolor=t["ink"], bbox_to_anchor=(0.5, -0.02))
     fig.tight_layout(rect=(0.04, 0.05, 1, 1))
     save(fig, "trace", theme)

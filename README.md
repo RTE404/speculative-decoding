@@ -60,7 +60,7 @@ Every line below is **one pass of the 3B model**, taken from the actual benchmar
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/figures/trace-dark.png">
-  <img alt="Two real generations, one line per 3B pass. The copy draft finds nothing for four passes, then lands 8 to 9 tokens per pass by copying the function's docstring. The 0.5B draft lands 3 to 4 tokens per pass on a maths question." src="docs/figures/trace-light.png" width="860">
+  <img alt="Two real generations, one line per 3B pass. The copy draft finds nothing for four passes, then lands 8 to 9 tokens per pass by copying the function's docstring. The 0.5B draft lands 3 to 4 tokens per pass on a maths question." src="docs/figures/trace-light.png" width="680">
 </picture>
 
 The copy draft finds nothing to copy for four passes, then recognises the docstring from the prompt and lands **9 tokens per pass**. The 0.5B draft guesses well on maths (4 of 4 on six of seven passes), but each guess costs two-thirds of a 3B step.
